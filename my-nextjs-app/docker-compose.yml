@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  go-app:
+    image: ashton152/app:latest
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  nextjs-app:
+    image: bhakthiprabhu/my-nextjs-app:latest
+    ports:
+      - "9500:3000"
+    restart: unless-stopped
+    depends_on:
+      - go-app
+    networks:
+      - app-network
+    environment:
+      - BACKEND_URL=http://go-app:8080 
+
+networks:
+  app-network:
+    driver: bridge

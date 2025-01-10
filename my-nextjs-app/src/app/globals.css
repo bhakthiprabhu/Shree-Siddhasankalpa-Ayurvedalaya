@@ -1,0 +1,68 @@
+:root {
+  --color-primary: #d4af37;
+  --color-secondary: #4e342e;
+  --color-accent: #d1b300;
+  --color-background: #f5f5dc;
+  --color-text-primary: #3e2723;
+  --color-text-secondary: #8d6e63;
+  --font-heading: "Merriweather", serif;
+  --font-body: "Open Sans", sans-serif;
+  --font-size-heading: 1.5rem;
+  --font-size-subheading: 1.3rem;
+  --font-size-body: 1rem;
+  --button-default-background: #d4af37;
+  --button-default-color: #ffffff;
+  --button-default-border-radius: 8px;
+  --button-default-padding: 10px 20px;
+  --button-default-hover-background: #b57f29;
+  --button-default-hover-color: #ffffff;
+  --layout-container-max-width: 1200px;
+  --layout-container-padding: 0 20px;
+  --layout-section-padding: 40px 0;
+  --logo-animation: glow 2s infinite;
+  --logout-button-animation: background-color 0.3s ease;
+  --navLink-animation: color 0.3s ease;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px #d4af37;
+  }
+  50% {
+    box-shadow: 0 0 20px #d4af37;
+  }
+  100% {
+    box-shadow: 0 0 10px #d4af37;
+  }
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--color-text-primary);
+  background: var(--color-background);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

@@ -1,0 +1,143 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-background);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--color-text-secondary);
+  font-family: var(--font-body);
+}
+
+.logoAndTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  border-radius: 50%;
+  margin: 0;
+  animation: var(--logo-animation);
+  width: 45px; 
+  height: 45px; 
+}
+
+.title {
+  font-size: var(--font-size-subheading);
+  font-weight: bold;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.navItem {
+  font-size: var(--font-size-body); 
+}
+
+.navLink {
+  text-decoration: none;
+  color: var(--color-secondary);
+  transition: var(--navLink-animation);
+  font-family: var(--font-body);
+}
+
+.navLink:hover {
+  color: var(--color-accent);
+}
+
+.menuIcons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 0.3rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.hamburgerLine {
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-text-primary);
+}
+
+.logoutIcon {
+  margin-left: 8px;
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navLinks {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 1rem;
+    background-color: var(--color-background);
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .navLinks.showMenu {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .logoutButton {
+    display: none;
+  }
+
+  .logoutIcon {
+    display: block;
+  }
+
+  /* Adjustments for smaller screens */
+  .logo {
+    width: 35px; /* Smaller logo size on smaller screens */
+    height: 35px;
+  }
+
+  .title {
+    font-size: calc(var(--font-size-subheading) - 0.3rem); /* Adjust title font size */
+  }
+
+  .navLinks {
+    gap: 20px; /* Reduce the gap between navigation items */
+  }
+
+  .navItem {
+    font-size: calc(var(--font-size-body) - 0.2rem); /* Adjust font size of nav items */
+  }
+
+  .navLink {
+    font-size: calc(var(--font-size-body) - 0.2rem); /* Adjust font size of nav links */
+  }
+
+  .hamburgerLine {
+    width: 20px; /* Adjust hamburger line size */
+  }
+  
+  .menuIcons {
+    gap: 0.5rem; /* Reduce gap between icons */
+  }
+}

@@ -1,0 +1,82 @@
+.textareaWrapper {
+  margin-bottom: 16px;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  color: var(--color-text-primary);
+}
+
+.textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-secondary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  width: 100%;
+  resize: vertical;
+}
+
+.textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.error {
+  border-color: red;
+}
+
+.errorMessage {
+  color: red;
+  font-size: var(--font-size-body);
+  margin-top: 4px;
+}
+
+.small {
+  padding: 8px;
+  font-size: calc(var(--font-size-body) - 0.3rem);
+}
+
+.medium {
+  padding: 12px;
+  font-size: var(--font-size-body);
+}
+
+.large {
+  padding: 16px;
+  font-size: calc(var(--font-size-body) + 0.3rem);
+}
+
+@media screen and (max-width: 600px) {
+  .label {
+    font-size: calc(var(--font-size-body) - 0.2rem);
+  }
+
+  .textarea {
+    font-size: calc(var(--font-size-body) - 0.2rem);
+  }
+
+  .errorMessage {
+    font-size: calc(var(--font-size-body) - 0.2rem);
+  }
+  .small {
+    padding: 8px;
+    font-size: calc(var(--font-size-body) - 0.5rem);
+  }
+
+  .medium {
+    padding: 10px;
+    font-size: calc(var(--font-size-body) - 0.2rem);
+  }
+
+  .large {
+    padding: 14px;
+    font-size: calc(var(--font-size-body));
+  }
+}

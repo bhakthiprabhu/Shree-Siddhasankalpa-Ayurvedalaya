@@ -1,0 +1,23 @@
+.errorContainer {
+  text-align: center;
+  margin-top: 50px;
+  color: #333;
+}
+
+.errorContainer h1 {
+  font-size: 2rem;
+  color: #ff0000;
+}
+
+.errorContainer p {
+  font-size: 1.2rem;
+}
+
+.link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.link:hover {
+  text-decoration: underline;
+}

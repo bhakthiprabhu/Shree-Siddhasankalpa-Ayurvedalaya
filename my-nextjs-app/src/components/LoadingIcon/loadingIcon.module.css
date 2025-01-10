@@ -1,0 +1,19 @@
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;  /* Full width of the container */
+  height: 100vh; /* Take up the full height of the viewport */
+}
+
+.loading-icon {
+  width: 10%;  /* Width is 10% of the container width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* For smaller screens, make the icon larger */
+@media (max-width: 600px) {
+  .loading-icon {
+    width: 30%;  /* Increase size on smaller screens */
+  }
+}
