@@ -10,6 +10,8 @@ import { addPatient } from "@/utils/api";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import { useParams } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
+import { useRouter } from "next/navigation";
+import { GENDER_OPTIONS } from "@/utils/Constants";
 
 const PatientRegistration = () => {
   const [name, setName] = useState("");
@@ -20,6 +22,7 @@ const PatientRegistration = () => {
   const [occupation, setOccupation] = useState("");
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const router = useRouter();
   const params = useParams();
   const location = params?.location;
 
@@ -36,8 +39,12 @@ const PatientRegistration = () => {
         occupation,
         location
       );
+
       if (response.message) {
         setSuccessMessage(`Patient: ${name} added successfully!`);
+        sessionStorage.setItem('phno', phoneNumber);
+        sessionStorage.setItem('name', name);
+        router.push(`/pages/add-complaint/${location}`);
         setAddress("");
         setName("");
         setAge("");
@@ -52,12 +59,6 @@ const PatientRegistration = () => {
 
   const inputSize = "medium";
 
-  const dropdownOptions = [
-    { value: "male", label: "Male" },
-    { value: "female", label: "Female" },
-    { value: "other", label: "Other" },
-  ];
-
   const message = error || successMessage;
   const type = error ? "error" : successMessage ? "success" : "";
 
@@ -67,7 +68,9 @@ const PatientRegistration = () => {
       <h1 className={styles.title}>Patient Registration</h1>
       <div className={styles.registrationContainer}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          {message && <ErrorMessage message={message} type={type} duration={5000}/>}
+          {message && (
+            <ErrorMessage message={message} type={type} duration={5000} />
+          )}
           <div className={styles.formGroup}>
             <Input
               type="text"
@@ -112,7 +115,7 @@ const PatientRegistration = () => {
             <Dropdown
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              options={dropdownOptions}
+              options={GENDER_OPTIONS}
               size={inputSize}
             />
           </div>

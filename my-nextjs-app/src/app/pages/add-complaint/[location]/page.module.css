@@ -1,0 +1,87 @@
+.container {
+  max-width: var(--layout-container-max-width);
+  margin: 0 auto;
+  padding: var(--layout-container-padding);
+  background-color: var(--color-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-top: 40px;
+}
+
+.title {
+  text-align: center;
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  font-family: var(--font-heading);
+  margin-bottom: 40px;
+  margin-top: 50px;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-subheading);
+  color: var(--color-text-primary);
+  margin-bottom: 5px;
+  border-bottom: 2px solid var(--color-secondary);
+  padding-bottom: 5px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.errorMessage {
+  color: var(--color-danger);
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.submitButton {
+  margin-bottom: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: var(--font-size-subheading);
+  }
+  .heading {
+    font-size: var(--font-size-body);
+  }
+
+  .subheading {
+    font-size: calc(var(--font-size-body) - 0.1rem);
+  }
+
+  .body {
+    font-size: calc(var(--font-size-body) - 0.2rem);
+  }
+
+  .patientHistory {
+    padding: 20px;
+  }
+
+  .patientHistory .date {
+    font-size: calc(var(--font-size-body) - 0.2rem);
+  }
+
+  .text {
+    font-size: calc(var(--font-size-body) - 0.2rem);
+  }
+}
