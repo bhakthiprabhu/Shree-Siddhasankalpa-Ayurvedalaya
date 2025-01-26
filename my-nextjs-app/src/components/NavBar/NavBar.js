@@ -7,9 +7,11 @@ import Logo from "@/assets/images/Logo.jpeg";
 import { useRouter } from "next/navigation";
 import { APP_INFO } from "@/utils/Constants";
 import Button from "../Button/Button";
+import { removeToken } from "@/utils/auth";
 
 const NavBar = ({ location }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  var navLinks = [];
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -18,19 +20,33 @@ const NavBar = ({ location }) => {
   const router = useRouter();
 
   const handleLogout = () => {
+    removeToken();
+    sessionStorage.clear();
     router.push("/pages/login");
   };
 
-  const navLinks = [
-    { name: "Home", href: `/pages/dashboard/${location}` },
-    { name: "Add Patient", href: `/pages/add-patient/${location}` },
-    {
-      name: "Complaint Details",
-      href: `/pages/complaint-details/${location}`,
-    },
-    { name: "Patient Follow-Ups", href: "/pages/patient-follow-ups" },
-    { name: "Patient History", href: "/pages/patient-history" },
-  ];
+  if (!location) {
+    removeToken();
+    router.push("/pages/login");
+  } else {
+    navLinks = [
+      { name: "Home", href: `/pages/dashboard/${location}` },
+      { name: "Add Patient", href: `/pages/add-patient/${location}` },
+      {
+        name: "Complaint Details",
+        href: `/pages/add-complaint/${location}`,
+      },
+      {
+        name: "Patient Follow-Ups",
+        href: `/pages/patient-follow-ups/${location}`,
+      },
+      { name: "Patient History", href: `/pages/patient-history/${location}` },
+    ];
+  }
+
+  const clearSessionStorage = () => {
+    sessionStorage.clear();
+  };
 
   return (
     <nav className={styles.navbar}>
@@ -59,7 +75,11 @@ const NavBar = ({ location }) => {
       <ul className={`${styles.navLinks} ${isMenuOpen ? styles.showMenu : ""}`}>
         {navLinks.map((link) => (
           <li key={link.name} className={styles.navItem}>
-            <Link href={link.href} className={styles.navLink}>
+            <Link
+              href={link.href}
+              onClick={clearSessionStorage}
+              className={styles.navLink}
+            >
               {link.name}
             </Link>
           </li>

@@ -8,10 +8,9 @@ import Input from "@/components/Input/Input";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import Button from "@/components/Button/Button";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
-import { APP_INFO } from "@/utils/Constants";
+import { APP_INFO, LOCATION_OPTIONS } from "@/utils/Constants";
 import { setToken } from "@/utils/auth";
 import styles from "./page.module.css";
-import { removeToken } from "@/utils/auth";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -20,13 +19,6 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter();
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  useEffect(() => {
-    if (!isSubmitted) {
-      removeToken();
-    }
-  }, [isSubmitted]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +28,6 @@ export default function LoginPage() {
       const { data, headers } = await loginData(username, password);
       if (data.message) {
         const token = headers.authorization;
-        setIsSubmitted(true);
         setToken(token);
         router.push(`/pages/dashboard/${location}`);
         setSuccessMessage("Login successful!");
@@ -51,11 +42,6 @@ export default function LoginPage() {
   };
 
   const inputSize = "medium";
-
-  const locationOptions = [
-    { value: "UDP", label: "Udupi" },
-    { value: "MNI", label: "Mangaon" },
-  ];
 
   const message = error || successMessage;
   const type = error ? "error" : successMessage ? "success" : "";
@@ -90,7 +76,7 @@ export default function LoginPage() {
           />
 
           <Dropdown
-            options={locationOptions}
+            options={LOCATION_OPTIONS}
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             size={inputSize}

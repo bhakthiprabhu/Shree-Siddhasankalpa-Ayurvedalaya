@@ -1,0 +1,127 @@
+.container {
+  max-width: var(--layout-container-max-width);
+  margin: 0 auto;
+  padding: var(--layout-container-padding);
+  background-color: var(--color-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+/* Title styling */
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-heading);
+  color: var(--color-primary);
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid var(--color-secondary);
+  padding: 12px;
+  text-align: left;
+  font-size: var(--font-size-body);
+}
+
+.table th {
+  background-color: var(--color-primary);
+  color: var(--button-default-color);
+  font-family: var(--font-heading);
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.dropdownWrapper {
+  flex: 1;
+  min-width: 200px;
+}
+
+.dropdownWrapper {
+  width: calc(100% / 3 - 10px);
+  margin-right: 10px;
+}
+
+.editIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: var(--color-primary);
+  color: var(--button-default-color);
+  border-radius: var(--button-default-border-radius);
+  cursor: pointer;
+  font-size: var(--font-size-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: var(--button-default-hover-background);
+  color: var(--button-default-hover-color);
+}
+
+.pagination span {
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+}
+.generateReportIcon {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.reportIcon {
+  cursor: pointer;
+  color: var(--color-secondary);
+}
+.reportIcon:hover {
+  color: var(--color-accent);
+}
+.previewContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  .dropdownWrapper {
+    width: 100%;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: calc(var(--font-size-body) - 0.2rem);
+  }
+}

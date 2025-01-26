@@ -51,10 +51,16 @@ export const addPatient = async (
 //get patient
 export const getPatient = async (location, mobileNumber, id) => {
   const getTokenResponse = getToken();
-  let url = `${process.env.NEXT_PUBLIC_GET_PATIENT_API_URL}?location=${location}&mobileNumber=${mobileNumber}`;
+  let url = `${process.env.NEXT_PUBLIC_GET_PATIENT_API_URL}?location=${location}`;
+
+  if (mobileNumber) {
+    url += `&mobileNumber=${mobileNumber}`;
+  }
+
   if (id) {
     url += `&id=${id}`;
   }
+
   const response = await axios.get(url, {
     headers: {
       Authorization: getTokenResponse,
@@ -67,15 +73,34 @@ export const getPatient = async (location, mobileNumber, id) => {
 //get complaint
 export const getComplaint = async (id) => {
   const getTokenResponse = getToken();
-  const response = await axios.get(process.env.NEXT_PUBLIC_COMPLAINT_DETAILS_API_URL, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: getTokenResponse,
-    },
-    params: {
-      id, 
-    },
-  });
+  const response = await axios.get(
+    process.env.NEXT_PUBLIC_COMPLAINT_DETAILS_API_URL,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: getTokenResponse,
+      },
+      params: {
+        id,
+      },
+    }
+  );
 
+  return response.data;
+};
+
+//add complaint
+export const addComplaint = async (complaintDetails) => {
+  const getTokenResponse = getToken();
+  const response = await axios.post(
+    process.env.NEXT_PUBLIC_ADD_COMPLAINT_DETAILS_API_URL,
+    complaintDetails,
+    {
+      headers: {
+        Authorization: getTokenResponse,
+        "Content-Type": "application/json",
+      },
+    }
+  );
   return response.data;
 };

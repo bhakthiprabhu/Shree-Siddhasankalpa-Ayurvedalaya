@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Dropdown.module.css";
 
-const Dropdown = ({ label, options, value, onChange, error, size }) => {
+const Dropdown = ({ label, options, value, onChange, error, size, disabled }) => {
   const sizeClass = size ? styles[size] : styles.medium;
 
   return (
@@ -12,6 +12,7 @@ const Dropdown = ({ label, options, value, onChange, error, size }) => {
         value={value}
         onChange={onChange}
         required
+        disabled={disabled}
       >
         <option value="" disabled>
           Select an option

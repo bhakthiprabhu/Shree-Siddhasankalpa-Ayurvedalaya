@@ -38,3 +38,9 @@
 .button-heading {
   display: inline-block;
 }
+@media (max-width: 768px) {
+  .button {
+    padding: 10px 16px;
+    font-size: calc(var(--font-size-body) - 0.2rem);
+  }
+}
