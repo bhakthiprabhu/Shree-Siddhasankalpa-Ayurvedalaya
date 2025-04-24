@@ -57,6 +57,17 @@ const PatientRegistration = () => {
     }
   };
 
+  const handleChangePhno = (e) => {
+    const value = e.target.value;
+    if (!/^\d*$/.test(value)) return;
+    setPhoneNumber(value);
+    if (value.length === 10) {
+      setError("");
+    } else {
+      setError("Phone number must be 10 digits.");
+    }
+  };
+
   const inputSize = "medium";
 
   const message = error || successMessage;
@@ -96,7 +107,7 @@ const PatientRegistration = () => {
               type="tel"
               placeholder="Phone Number"
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={handleChangePhno}
               size={inputSize}
             />
           </div>

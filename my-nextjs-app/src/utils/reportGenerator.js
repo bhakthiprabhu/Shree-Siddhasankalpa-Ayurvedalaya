@@ -1,9 +1,9 @@
-import { jsPDF } from "jspdf";
-import "jspdf-autotable"; // Import the autoTable plugin
-import logo from "@/assets/images/Logo.jpg";
-import { extractDate } from "./handlers";
-import { APP_INFO } from "./Constants";
-import { convertedBase64 } from "./handlers";
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable'; // Import the autoTable plugin
+import logo from '@/assets/images/Logo.jpg';
+import { extractDate } from './handlers';
+import { APP_INFO } from './Constants';
+import { convertedBase64 } from './handlers';
 
 export const handleGenerateReport = async (
   patientId,
@@ -16,11 +16,11 @@ export const handleGenerateReport = async (
     const doc = new jsPDF();
 
     // Add Custom font
-    doc.addFileToVFS("SamarkanNormal.ttf", convertedBase64);
-    doc.addFont("SamarkanNormal.ttf", "Samarkan", "normal");
+    doc.addFileToVFS('SamarkanNormal.ttf', convertedBase64);
+    doc.addFont('SamarkanNormal.ttf', 'Samarkan', 'normal');
 
     // Set default font to Times New Roman
-    doc.setFont("times");
+    doc.setFont('times');
 
     // Page dimensions and margins
     const pageWidth = doc.internal.pageSize.width;
@@ -43,37 +43,37 @@ export const handleGenerateReport = async (
       const logoUrl = logo.src; // Replace this with the actual path or base64 URL of your logo
       const logoWidth = 26; // Adjust logo width
       const logoHeight = 26; // Adjust logo height
-      doc.addImage(logoUrl, "JPG", 10, 10, logoWidth, logoHeight); // Add logo at top-left corner
+      doc.addImage(logoUrl, 'JPG', 10, 10, logoWidth, logoHeight); // Add logo at top-left corner
 
       // Title and Clinic Details
       doc.setFontSize(19);
-      doc.setFont("Samarkan", "normal");
+      doc.setFont('Samarkan', 'normal');
       doc.text(
         APP_INFO.APP_NAME.toUpperCase(),
         pageWidth / 2,
         18,
         null,
         null,
-        "center"
+        'center'
       ); // Clinic name
 
       doc.setFontSize(11);
-      doc.setFont("times", "normal");
-      doc.text(APP_INFO.APP_ADDRESS, pageWidth / 2, 24, null, null, "center"); // Clinic address
+      doc.setFont('times', 'normal');
+      doc.text(APP_INFO.APP_ADDRESS, pageWidth / 2, 24, null, null, 'center'); // Clinic address
 
-      doc.setFont("times", "italic");
-      doc.text(APP_INFO.APP_EMAIL, pageWidth / 2, 34, null, null, "center");
+      doc.setFont('times', 'italic');
+      doc.text(APP_INFO.APP_EMAIL, pageWidth / 2, 34, null, null, 'center');
 
       // Doctor Registration ID
       doc.setFontSize(10);
-      doc.setFont("times", "normal");
+      doc.setFont('times', 'normal');
       doc.text(
         APP_INFO.APP_PHONE_NUMBER,
         rightMargin + 10,
         17,
         null,
         null,
-        "right"
+        'right'
       );
       doc.text(
         APP_INFO.APP_REGISTRATION_ID,
@@ -81,7 +81,7 @@ export const handleGenerateReport = async (
         24,
         null,
         null,
-        "right"
+        'right'
       );
 
       // Add line
@@ -92,7 +92,7 @@ export const handleGenerateReport = async (
     const addFooter = () => {
       const currentDate = new Date().toLocaleDateString(); // Get today's date
       doc.setFontSize(10);
-      doc.setFont("times", "bolditalic"); // Combine bold and italic
+      doc.setFont('times', 'bolditalic'); // Combine bold and italic
       y = y + 15;
 
       // Left side - Today's date
@@ -119,8 +119,8 @@ export const handleGenerateReport = async (
     // Title: Case Sheet with Underline
     addHeader();
     doc.setFontSize(16);
-    doc.setFont("times", "bold");
-    doc.text("Case Sheet", pageWidth / 2, y, null, null, "center"); // Center align title
+    doc.setFont('times', 'bold');
+    doc.text('Case Sheet', pageWidth / 2, y, null, null, 'center'); // Center align title
     doc.setDrawColor(0, 0, 0);
     doc.line(pageWidth / 2 - 20, y + 2, pageWidth / 2 + 20, y + 2); // Draw underline centered under title
     y += 10;
@@ -135,16 +135,16 @@ export const handleGenerateReport = async (
 
     // Patient Details (Two Column Layout)
     doc.setFontSize(12);
-    doc.setFont("times", "normal");
+    doc.setFont('times', 'normal');
 
     // First Column (Left side)
-    doc.setFont("times", "bold");
-    doc.text("OPD No.:", leftMargin, y);
-    doc.text("Name:", leftMargin, y + 8);
-    doc.text("Gender:", leftMargin, y + 16);
-    doc.text("Phone:", leftMargin, y + 24);
+    doc.setFont('times', 'bold');
+    doc.text('OPD No.:', leftMargin, y);
+    doc.text('Name:', leftMargin, y + 8);
+    doc.text('Gender:', leftMargin, y + 16);
+    doc.text('Phone:', leftMargin, y + 24);
 
-    doc.setFont("times", "normal");
+    doc.setFont('times', 'normal');
     doc.text(`${patient.id}`, leftMargin + 20, y);
     doc.text(`${patient.name}`, leftMargin + 20, y + 8);
     doc.text(`${patient.gender}`, leftMargin + 20, y + 16);
@@ -152,11 +152,11 @@ export const handleGenerateReport = async (
 
     // Second Column (Right side)
     const columnStartX = leftMargin + availableWidth / 2;
-    doc.setFont("times", "bold");
-    doc.text("Age:", columnStartX, y);
-    doc.text("Date: ", columnStartX, y + 8);
+    doc.setFont('times', 'bold');
+    doc.text('Age:', columnStartX, y);
+    doc.text('Date: ', columnStartX, y + 8);
 
-    doc.setFont("times", "normal");
+    doc.setFont('times', 'normal');
     doc.text(`${patient.age}`, columnStartX + 18, y);
     doc.text(`${extractDate(chiefComplaint.date)}`, columnStartX + 18, y + 8);
     y += 16; // Move down after patient details
@@ -164,25 +164,26 @@ export const handleGenerateReport = async (
     // Address Wrapping and Alignment Fix
     const addressMaxWidth = availableWidth / 2; // Wrap address in second column
     const addressLines = doc.splitTextToSize(patient.address, addressMaxWidth);
-    doc.setFont("times", "bold");
-    doc.text("Address:", columnStartX, y);
-    doc.setFont("times", "normal");
+    doc.setFont('times', 'bold');
+    doc.text('Address:', columnStartX, y);
+    doc.setFont('times', 'normal');
     addressLines.forEach((line, index) => {
       doc.text(line, columnStartX + 18, y + index * 8);
     });
     y += addressLines.length * 8 + 10; // Adjust Y position after address
 
     // Complaint Table
-    doc.setFont("times", "bold");
-    doc.text("Complaint Details:", leftMargin, y);
+    doc.setFont('times', 'bold');
+    doc.text('Complaint Details:', leftMargin, y);
     y += 8;
     checkAvailableSpace(10);
 
     // Create a table for complaint details
     const complaintDetails = [
-      ["Chief Complaint", chiefComplaint.chiefComplaint],
-      ["Description", chiefComplaint.associatedComplaint],
-      ["Investigation", chiefComplaint.investigation],
+      ['Chief Complaint', chiefComplaint.chiefComplaint],
+      ['Description', chiefComplaint.associatedComplaint],
+      ['Investigation', chiefComplaint.investigation],
+      ['Diagnosis', chiefComplaint.diagnosis],
     ];
 
     // Create complaint details table dynamically
@@ -191,12 +192,12 @@ export const handleGenerateReport = async (
       body: complaintDetails,
       margin: { left: leftMargin, right: rightMargin },
       styles: {
-        font: "times",
+        font: 'times',
         fontSize: 12,
         cellPadding: 3,
-        halign: "left",
-        valign: "middle",
-        overflow: "linebreak",
+        halign: 'left',
+        valign: 'middle',
+        overflow: 'linebreak',
         fillColor: [255, 255, 255],
         textColor: [0, 0, 0],
         lineWidth: 0.3,
@@ -213,7 +214,7 @@ export const handleGenerateReport = async (
 
     // Function to add tables dynamically
     const addDynamicTable = (tableData, title) => {
-      doc.setFont("times", "bold");
+      doc.setFont('times', 'bold');
       doc.text(title, leftMargin, y);
       y += 8;
       checkAvailableSpace(10);
@@ -223,12 +224,12 @@ export const handleGenerateReport = async (
         body: tableData,
         margin: { left: leftMargin, right: rightMargin },
         styles: {
-          font: "times",
+          font: 'times',
           fontSize: 12,
           cellPadding: 3,
-          halign: "left",
-          valign: "middle",
-          overflow: "linebreak",
+          halign: 'left',
+          valign: 'middle',
+          overflow: 'linebreak',
           fillColor: [255, 255, 255],
           textColor: [0, 0, 0],
           lineWidth: 0.3,
@@ -243,31 +244,21 @@ export const handleGenerateReport = async (
       y = tableHeight + 10; // Adjust the Y position after adding the table
     };
 
-    // Add Examination Table
-    addDynamicTable(
-      [
-        ["Ashtasthana Pareeksha", chiefComplaint.ashtasthana],
-        ["Dashavidha Pareeksha", chiefComplaint.dashavidha],
-        ["Other Examination", chiefComplaint.others],
-      ],
-      "Examination and Diagnosis:"
-    );
-
     // Add Treatment Table
     addDynamicTable(
       [
-        ["Medicine", chiefComplaint.medicine],
-        ["Panchakarma", chiefComplaint.panchakarma],
+        ['Panchakarma', chiefComplaint.panchakarma],
+        ['Medicine', chiefComplaint.medicine],
       ],
-      "Treatment:"
+      'Treatment:'
     );
 
     // Follow-up Details - 3 Column Table (Date, Condition, Medicine)
     if (chiefComplaint.followup && Array.isArray(chiefComplaint.followup)) {
       // Create the table for Follow-up Details
-      doc.setFont("times", "bold");
-      doc.text("Follow-up Details:", leftMargin, y);
-      doc.setFont("times", "normal");
+      doc.setFont('times', 'bold');
+      doc.text('Follow-up Details:', leftMargin, y);
+      doc.setFont('times', 'normal');
       y += 8;
       checkAvailableSpace(10);
 
@@ -281,16 +272,16 @@ export const handleGenerateReport = async (
       // Add the table with 3 columns: Date, Condition, Medicine
       doc.autoTable({
         startY: y,
-        head: [["Date", "Condition", "Medicine"]],
+        head: [['Date', 'Condition', 'Medicine']],
         body: followupDetails,
         margin: { left: leftMargin, right: rightMargin },
         styles: {
-          font: "times",
+          font: 'times',
           fontSize: 12,
           cellPadding: 3,
-          halign: "left",
-          valign: "middle",
-          overflow: "linebreak",
+          halign: 'left',
+          valign: 'middle',
+          overflow: 'linebreak',
           fillColor: [255, 255, 255],
           textColor: [0, 0, 0], // No background color
           lineWidth: 0.3, // Border width
@@ -300,7 +291,7 @@ export const handleGenerateReport = async (
           textColor: [0, 0, 0], // Set header text color to black
           fillColor: [255, 255, 255],
           textColor: [0, 0, 0], // Optional: Ensure header background is white
-          fontStyle: "bold", // Optional: Make the header text bold
+          fontStyle: 'bold', // Optional: Make the header text bold
         },
         columnStyles: {
           0: { cellWidth: 57 }, // Date column width (same as in Treatment)
@@ -320,12 +311,21 @@ export const handleGenerateReport = async (
     addFooter();
 
     // Generate PDF preview URL
-    const pdfBlob = doc.output("blob");
+    const pdfBlob = doc.output('blob');
     const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    // Auto-download for small screens
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.download = `${patient.name}_report.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
 
     // Set the preview URL to display in a modal or iframe
     setPreviewUrl(pdfUrl);
-  } catch (error) {
-    console.error("Error generating report:", error);
-  }
+  } catch (error) {}
 };

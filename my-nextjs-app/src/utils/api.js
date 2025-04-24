@@ -1,5 +1,5 @@
-import axios from "axios";
-import { getToken } from "./auth";
+import axios from 'axios';
+import { getToken } from './auth';
 
 //login data
 export const loginData = async (userName, password) => {
@@ -77,7 +77,7 @@ export const getComplaint = async (id) => {
     process.env.NEXT_PUBLIC_COMPLAINT_DETAILS_API_URL,
     {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: getTokenResponse,
       },
       params: {
@@ -98,7 +98,7 @@ export const addComplaint = async (complaintDetails) => {
     {
       headers: {
         Authorization: getTokenResponse,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }
   );

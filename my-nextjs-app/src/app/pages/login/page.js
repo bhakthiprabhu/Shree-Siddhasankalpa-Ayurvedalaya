@@ -29,7 +29,7 @@ export default function LoginPage() {
       if (data.message) {
         const token = headers.authorization;
         setToken(token);
-        router.push(`/pages/dashboard/${location}`);
+        router.push(`/pages/add-patient/${location}`);
         setSuccessMessage("Login successful!");
       }
     } catch (error) {
@@ -59,7 +59,9 @@ export default function LoginPage() {
         <h1 className={styles.title}>{APP_INFO.APP_NAME}</h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
-          {message && <ErrorMessage message={message} type={type} duration={2000}/>}
+          {message && (
+            <ErrorMessage message={message} type={type} duration={2000} />
+          )}
           <Input
             type="text"
             placeholder="Username"
