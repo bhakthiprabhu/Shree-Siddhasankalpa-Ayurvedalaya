@@ -1,41 +1,42 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import NavBar from "@/components/NavBar/NavBar";
-import withAuth from "@/hoc/withAuth";
-import Dropdown from "@/components/Dropdown/Dropdown";
-import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
-import Button from "@/components/Button/Button";
-import Input from "@/components/Input/Input";
-import styles from "./page.module.css";
-import { getPatient, addComplaint, getComplaint } from "@/utils/api";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import NavBar from '@/components/NavBar/NavBar';
+import withAuth from '@/hoc/withAuth';
+import Dropdown from '@/components/Dropdown/Dropdown';
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
+import Button from '@/components/Button/Button';
+import Input from '@/components/Input/Input';
+import styles from './page.module.css';
+import { getPatient, addComplaint, getComplaint } from '@/utils/api';
+import Textarea from '@/components/Textarea/Textarea';
 
 const FollowUpPage = () => {
   const params = useParams();
   const location = params?.location;
 
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [filteredPatients, setFilteredPatients] = useState([]);
   const [dropdownOptions, setDropdownOptions] = useState([]);
-  const [inputError, setInputError] = useState("");
-  const [dropdownError, setDropdownError] = useState("");
-  const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [presentCondition, setPresentCondition] = useState("");
-  const [medicine, setMedicine] = useState("");
-  const [amount, setAmount] = useState("");
-  const [paymentMode, setPaymentMode] = useState("");
-  const [patientId, setPatientId] = useState("");
+  const [inputError, setInputError] = useState('');
+  const [dropdownError, setDropdownError] = useState('');
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [presentCondition, setPresentCondition] = useState('');
+  const [medicine, setMedicine] = useState('');
+  const [amount, setAmount] = useState('');
+  const [paymentMode, setPaymentMode] = useState('');
+  const [patientId, setPatientId] = useState('');
 
   useEffect(() => {
     const fetchPatients = async (location, phoneNumber) => {
       if (!/^\d{10}$/.test(phoneNumber)) {
-        setInputError("Please enter a valid 10-digit phone number");
+        setInputError('Please enter a valid 10-digit phone number');
         return;
       }
 
-      setInputError("");  // Clear previous errors if any
+      setInputError(''); // Clear previous errors if any
       try {
         const response = await getPatient(location, phoneNumber);
         if (response.patients && response.patients.length > 0) {
@@ -49,58 +50,52 @@ const FollowUpPage = () => {
           for (const patient of filtered) {
             const complaintResponse = await getComplaint(patient.id);
 
-            // Log the complaint response to check its structure
-            console.log(`Complaint response for patient ${patient.id}:`, complaintResponse);
-
             if (complaintResponse && complaintResponse.patients) {
               if (complaintResponse.patients !== null) {
-                // Log complaints to check their structure
-                console.log(`Complaints for patient ${patient.id}:`, complaintResponse.patients);
-
                 // Check if there's at least one complaint with status false
-                const validComplaint = complaintResponse.patients.some(complaint => complaint.status === false);
-                console.log(`Valid complaint found for patient ${patient.id}:`, validComplaint);
+                const validComplaint = complaintResponse.patients.some(
+                  (complaint) => complaint.status === false
+                );
 
                 if (validComplaint) {
                   validPatients.push(patient);
                 }
               } else {
-                // If patients are null, log that no complaints exist
-                console.log(`No complaints found for patient ${patient.id}`);
               }
             }
           }
 
           setFilteredPatients(validPatients);
-          setDropdownOptions(validPatients.map((patient) => ({
-            value: patient.name,
-            label: patient.name,
-          })));
+          setDropdownOptions(
+            validPatients.map((patient) => ({
+              value: patient.name,
+              label: patient.name,
+            }))
+          );
         } else {
-          setInputError("No patients found for the provided phone number.");
+          setInputError('No patients found for the provided phone number.');
         }
       } catch (error) {
-        setInputError("Failed to fetch patients. Please try again.");
+        setInputError('Failed to fetch patients. Please try again.');
       }
     };
 
     if (phoneNumber) {
       fetchPatients(location, phoneNumber);
     } else {
-      setInputError("Please enter phone number");
+      setInputError('Please enter phone number');
     }
   }, [phoneNumber, location]);
 
   const handlePatientSelect = (e) => {
     const selectedName = e.target.value;
-    setDropdownError("");
+    setDropdownError('');
     const selectedPatient = filteredPatients.find(
       (patient) => patient.name === selectedName
     );
     setSelectedPatient(selectedPatient);
     if (selectedPatient) {
       setPatientId(selectedPatient.id);
-      console.log(selectedPatient.id);
     }
   };
 
@@ -112,7 +107,7 @@ const FollowUpPage = () => {
       medicine: medicine,
       amount: parseInt(amount),
       paymentmode: paymentMode,
-      isFollowup: true,
+      followupFlag: true,
     };
 
     try {
@@ -120,25 +115,34 @@ const FollowUpPage = () => {
       if (response && response.message) {
         setSuccessMessage(response.message);
         setTimeout(() => {
-          setSuccessMessage("");
+          setSuccessMessage('');
           setDropdownOptions([]);
-          setPhoneNumber("");
-          setPresentCondition("");
-          setMedicine("");
-          setAmount("");
-          setPaymentMode("");
+          setPhoneNumber('');
+          setPresentCondition('');
+          setMedicine('');
+          setAmount('');
+          setPaymentMode('');
         }, 3000);
       } else {
-        setError("Unexpected response from server. Please try again.");
+        setError('Unexpected response from server. Please try again.');
       }
     } catch (err) {
-      setError("Error submitting follow-up details. Please try again.");
+      setError('Error submitting follow-up details. Please try again.');
     }
   };
 
-  const inputSize = "medium";
+  // Clear the filter
+  const clearFilter = () => {
+    setPhoneNumber(''); // Clear the phone number input
+    setFilteredPatients([]); // Clear the filtered patients
+    setSelectedPatient(null); // Reset the selected patient
+    setInputError(''); // Clear any previous error
+    setDropdownError(''); // Clear any dropdown error
+  };
+
+  const inputSize = 'medium';
   const message = error || successMessage;
-  const messageType = error ? "error" : successMessage ? "success" : "";
+  const messageType = error ? 'error' : successMessage ? 'success' : '';
 
   return (
     <div>
@@ -146,8 +150,14 @@ const FollowUpPage = () => {
       <div className={styles.container}>
         <h1 className={styles.title}>Patient Follow-Up</h1>
         <form onSubmit={handleSubmit} className={styles.form}>
-          {message && <ErrorMessage message={message} type={messageType} duration={3000} />}
-          
+          {message && (
+            <ErrorMessage
+              message={message}
+              type={messageType}
+              duration={3000}
+            />
+          )}
+
           {/* Patient Details Section */}
           <div className={styles.formGroup}>
             <h2 className={styles.heading}>Patient Profile</h2>
@@ -163,29 +173,35 @@ const FollowUpPage = () => {
               {filteredPatients.length > 0 && phoneNumber && (
                 <Dropdown
                   options={dropdownOptions}
-                  value={selectedPatient ? selectedPatient.name : ""}
+                  value={selectedPatient ? selectedPatient.name : ''}
                   onChange={handlePatientSelect}
                   size={inputSize}
                   error={dropdownError}
                 />
               )}
-              {!phoneNumber && <p className={styles.text}>Please enter a phone number to search</p>}
-              {filteredPatients.length === 0 && phoneNumber && <p className={styles.text}>No matching patients found</p>}
+              {!phoneNumber && <p className={styles.text}></p>}
+              {filteredPatients.length === 0 && phoneNumber && (
+                <p className={styles.text}>No matching patients found</p>
+              )}
+              {/* Clear Filter Button */}
+              <div className={styles.clearFilter}>
+                {phoneNumber && (
+                  <Button text="Clear Filter" onClick={clearFilter} />
+                )}
+              </div>
             </div>
           </div>
 
           {/* Follow-Up Details Section */}
           <div className={styles.formGroup}>
             <h2 className={styles.heading}>Follow-Up Details</h2>
-            <Input
-              type="text"
+            <Textarea
               placeholder="Present Condition"
               value={presentCondition}
               onChange={(e) => setPresentCondition(e.target.value)}
               size={inputSize}
             />
-            <Input
-              type="text"
+            <Textarea
               placeholder="Medicine"
               value={medicine}
               onChange={(e) => setMedicine(e.target.value)}

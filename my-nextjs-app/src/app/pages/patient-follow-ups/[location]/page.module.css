@@ -55,6 +55,10 @@
   margin-bottom: 30px;
 }
 
+.clearFilter {
+  margin-top: 2px;
+} 
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .title {

@@ -30,7 +30,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
 }
 
 .formGroup {
@@ -41,8 +41,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
 }
 
 .errorMessage {
@@ -55,6 +55,10 @@
 .submitButton {
   margin-bottom: 30px;
 }
+
+.clearFilter {
+  margin-top: 2px;
+} 
 
 /* Responsive Design */
 @media (max-width: 768px) {

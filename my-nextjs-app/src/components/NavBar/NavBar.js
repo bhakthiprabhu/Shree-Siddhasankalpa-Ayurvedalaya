@@ -1,13 +1,13 @@
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { FiLogOut } from "react-icons/fi";
-import styles from "./NavBar.module.css";
-import Logo from "@/assets/images/Logo.jpeg";
-import { useRouter } from "next/navigation";
-import { APP_INFO } from "@/utils/Constants";
-import Button from "../Button/Button";
-import { removeToken } from "@/utils/auth";
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { FiLogOut } from 'react-icons/fi';
+import styles from './NavBar.module.css';
+import Logo from '@/assets/images/Logo.jpeg';
+import { useRouter } from 'next/navigation';
+import { APP_INFO } from '@/utils/Constants';
+import Button from '../Button/Button';
+import { removeToken } from '@/utils/auth';
 
 const NavBar = ({ location }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,25 +22,24 @@ const NavBar = ({ location }) => {
   const handleLogout = () => {
     removeToken();
     sessionStorage.clear();
-    router.push("/pages/login");
+    router.push('/pages/login');
   };
 
   if (!location) {
     removeToken();
-    router.push("/pages/login");
+    router.push('/pages/login');
   } else {
     navLinks = [
-      { name: "Home", href: `/pages/dashboard/${location}` },
-      { name: "Add Patient", href: `/pages/add-patient/${location}` },
+      { name: 'Add Patient', href: `/pages/add-patient/${location}` },
       {
-        name: "Complaint Details",
+        name: 'Complaint Details',
         href: `/pages/add-complaint/${location}`,
       },
       {
-        name: "Patient Follow-Ups",
+        name: 'Patient Follow-Ups',
         href: `/pages/patient-follow-ups/${location}`,
       },
-      { name: "Patient History", href: `/pages/patient-history/${location}` },
+      { name: 'Patient History', href: `/pages/patient-history/${location}` },
     ];
   }
 
@@ -72,14 +71,13 @@ const NavBar = ({ location }) => {
         </button>
       </div>
 
-      <ul className={`${styles.navLinks} ${isMenuOpen ? styles.showMenu : ""}`}>
+      <ul className={`${styles.navLinks} ${isMenuOpen ? styles.showMenu : ''}`}>
         {navLinks.map((link) => (
           <li key={link.name} className={styles.navItem}>
             <Link
               href={link.href}
               onClick={clearSessionStorage}
-              className={styles.navLink}
-            >
+              className={styles.navLink}>
               {link.name}
             </Link>
           </li>

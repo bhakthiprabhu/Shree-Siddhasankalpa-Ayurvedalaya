@@ -8,6 +8,7 @@ docker ps
 # docker build
 ```bash
 docker build -t my-nextjs-app .
+docker build -t bhakthiprabhu/my-nextjs-app:latest .
 ```
 
 # stop image
@@ -48,8 +49,9 @@ npm run dev
 
 # Docker Deploy 
 ```bash
-docker build -t my-nextjs-app .
-docker run -p 3000:3000 my-nextjs-app
+docker build -t bhakthiprabhu/my-nextjs-app:latest .
+docker push bhakthiprabhu/my-nextjs-app:latest
+docker run -d -p 3000:3000 bhakthiprabhu/my-nextjs-app:latest
 ```
 
 # Push to Docker Hub
@@ -63,7 +65,15 @@ docker push bhakthiprabhu/my-nextjs-app:latest
 ```bash
 docker pull ashton152/my-go-app:latest
 docker pull bhakthiprabhu/my-nextjs-app:latest  
+docker run -d -p 3000:3000 bhakthiprabhu/my-nextjs-app:latest
 docker-compose down
 docker-compose build
 docker-compose up -d
+```
+
+# updated -  spring boot
+```bash
+docker pull ashton152/spring-boot-app:latest
+docker run -d -p 9000:9000 ashton152/spring-boot-app:latest   
+
 ```
